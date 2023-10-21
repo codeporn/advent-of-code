@@ -7,8 +7,7 @@ import java.util.stream.Collectors;
 public class Four extends Puzzle {
 
   public static void main(final String... args) {
-    Four four = new Four();
-    four.run();
+    new Four().run();
   }
 
   private void run() {

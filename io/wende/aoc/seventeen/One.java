@@ -6,8 +6,7 @@ import java.util.regex.Pattern;
 public class One extends Puzzle{
 
   public static void main(final String... args) {
-    One one = new One();
-    one.run();
+    new One().run();
   }
 
   private void run() {
