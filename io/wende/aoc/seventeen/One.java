@@ -12,8 +12,6 @@ public class One extends Puzzle {
     }
 
     private void calculate(final int steps) {
-        //input = "1212";
-
         int[] inputArr = this.createInput();
 
         int result = 0;
