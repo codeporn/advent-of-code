@@ -1,11 +1,13 @@
 package io.wende.aoc.seventeen;
 
+import io.wende.aoc.Puzzle;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Six extends Puzzle{
+public class Six extends Puzzle {
 
   public static void main(final String... args) {
     new Six().run();

@@ -1,13 +1,14 @@
-package io.wende.aoc.seventeen;
-
-import io.wende.aoc.Util;
+package io.wende.aoc;
 
 public abstract class Puzzle {
 
   protected String input;
 
   protected Puzzle() {
-    this.input = Util.loadFileContent(this.getClass().getSimpleName().toLowerCase());
+    this.input = Util.loadFileContent(
+        this.getClass().getPackageName().substring(this.getClass().getPackageName().lastIndexOf(".") + 1)
+            + "/"
+            + this.getClass().getSimpleName().toLowerCase());
   }
 
   protected void out(String message, final Object... args) {

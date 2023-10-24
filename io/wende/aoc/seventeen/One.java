@@ -1,5 +1,7 @@
 package io.wende.aoc.seventeen;
 
+import io.wende.aoc.Puzzle;
+
 public class One extends Puzzle {
 
     public static void main(final String... args) {

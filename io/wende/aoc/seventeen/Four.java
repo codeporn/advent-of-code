@@ -1,5 +1,7 @@
 package io.wende.aoc.seventeen;
 
+import io.wende.aoc.Puzzle;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
