@@ -14,7 +14,7 @@ public class Four extends Puzzle {
   }
 
   private void run() {
-    List<List<String>> phrases = Arrays.stream(input.split("\r\n")).map(line -> Arrays.stream(line.split(" ")).collect(Collectors.toList())).toList();
+    List<List<String>> phrases = this.getInputLines().stream().map(line -> Arrays.stream(line.split(" ")).collect(Collectors.toList())).toList();
     int phraseCount = phrases.size();
 
     for(List<String> phrase : phrases) {

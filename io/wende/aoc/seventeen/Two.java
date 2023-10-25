@@ -36,7 +36,7 @@ public class Two extends Puzzle {
   }
 
   private int[][] prepareInput() {
-    List<String> flatList = Arrays.stream(input.split("\r\n")).toList();
+    List<String> flatList = this.getInputLines();
     int[][] inputArray = new int[flatList.size()][flatList.get(0).split("\t").length];
 
     for(int i = flatList.size(); i-- >0; ) {

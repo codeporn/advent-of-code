@@ -2,8 +2,6 @@ package io.wende.aoc.twentytwo;
 
 import io.wende.aoc.Puzzle;
 
-import java.util.Arrays;
-
 public class Two extends Puzzle {
 
     public static void main(final String... args) {
@@ -12,12 +10,12 @@ public class Two extends Puzzle {
 
     private void run() {
         out("Final score is {}",
-                Arrays.stream(input.split("\n"))
+            this.getInputLines().stream()
                         .map(it -> new Game(it.toCharArray()[0], it.toCharArray()[2]).score())
                         .reduce(Integer::sum).get());
 
         out("Final score of a staged game is {}",
-                Arrays.stream(input.split("\n"))
+            this.getInputLines().stream()
                         .map(it -> new StagedGame(it.toCharArray()[0], it.toCharArray()[2]).score())
                         .reduce(Integer::sum).get());
     }

@@ -1,5 +1,8 @@
 package io.wende.aoc;
 
+import java.util.Arrays;
+import java.util.List;
+
 public abstract class Puzzle {
 
   protected String input;
@@ -16,5 +19,9 @@ public abstract class Puzzle {
       message = message.replaceFirst("\\{\\}", String.valueOf(args[i]));
     }
     System.out.println(message);
+  }
+
+  protected List<String> getInputLines() {
+    return Arrays.stream(this.input.split(System.lineSeparator())).toList();
   }
 }

@@ -7,7 +7,6 @@ import java.nio.charset.StandardCharsets;
 public class Util {
 
   public static String loadFileContent(final String filename) {
-
     try (InputStream in = new FileInputStream("data/" + filename)) {
       return new String(in.readAllBytes(), StandardCharsets.UTF_8);
     } catch(Exception e) {
@@ -18,6 +17,6 @@ public class Util {
   }
 
   public static void main(final String args[]) {
-    System.out.println("Content: \n" + Util.loadFileContent("tewst"));
+    System.out.println("Content: \n" + Util.loadFileContent("test"));
   }
 }

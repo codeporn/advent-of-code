@@ -12,7 +12,7 @@ public class Seven extends Puzzle {
   }
 
   private void run() {
-    List<String> remaining = Arrays.stream(input.split("\n"))
+    List<String> remaining = this.getInputLines().stream()
         .filter(line -> line.contains("->")).toList();
 
     for(String line : remaining) {
@@ -32,7 +32,7 @@ public class Seven extends Puzzle {
   }
 
   private int calculate(final String bottomProgramName) {
-    List<String> flatList = Arrays.stream(input.split("\r\n")).collect(Collectors.toList());
+    List<String> flatList = this.getInputLines().stream().collect(Collectors.toList());
     Program bottomProgram = this.buildHierarchy(flatList, bottomProgramName);
     Map<Program, Integer> weightMap = new HashMap(bottomProgram.dependencies.size());
 
