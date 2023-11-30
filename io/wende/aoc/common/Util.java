@@ -1,4 +1,4 @@
-package io.wende.aoc;
+package io.wende.aoc.common;
 
 import java.io.FileInputStream;
 import java.io.InputStream;

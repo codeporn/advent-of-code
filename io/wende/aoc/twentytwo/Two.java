@@ -1,6 +1,6 @@
 package io.wende.aoc.twentytwo;
 
-import io.wende.aoc.Puzzle;
+import io.wende.aoc.common.Puzzle;
 
 public class Two extends Puzzle {
 

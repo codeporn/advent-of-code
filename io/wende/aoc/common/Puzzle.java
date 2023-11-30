@@ -1,4 +1,4 @@
-package io.wende.aoc;
+package io.wende.aoc.common;
 
 import java.util.Arrays;
 import java.util.List;

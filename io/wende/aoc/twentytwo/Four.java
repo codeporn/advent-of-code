@@ -1,6 +1,6 @@
 package io.wende.aoc.twentytwo;
 
-import io.wende.aoc.Puzzle;
+import io.wende.aoc.common.Puzzle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +25,7 @@ public class Four extends Puzzle {
         overlappingPairs++;
       }
     }
-    out("{} pairs fully contain one or the other", fullyContainedPairs);
+    out("{} pairs fully contain sample or the other", fullyContainedPairs);
     out("{} pairs overlap", overlappingPairs);
   }
 

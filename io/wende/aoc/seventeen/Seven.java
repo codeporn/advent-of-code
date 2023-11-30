@@ -1,6 +1,6 @@
 package io.wende.aoc.seventeen;
 
-import io.wende.aoc.Puzzle;
+import io.wende.aoc.common.Puzzle;
 
 import java.util.*;
 import java.util.stream.Collectors;

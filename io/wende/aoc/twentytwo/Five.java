@@ -1,6 +1,6 @@
 package io.wende.aoc.twentytwo;
 
-import io.wende.aoc.Puzzle;
+import io.wende.aoc.common.Puzzle;
 
 import java.util.Arrays;
 import java.util.LinkedList;
