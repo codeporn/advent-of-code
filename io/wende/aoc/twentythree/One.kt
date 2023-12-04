@@ -22,11 +22,20 @@ class One : Task() {
 
         println("Sum of all coordinates is $sum")
 
-        val literals = listOf("one", "two", "three", "four", "five", "six", "seven", "eight", "nine")
-        val numbers = listOf("o1e", "t2o", "t3e", "f4r", "f5e", "s6x", "s7n", "e8t", "n9e")
+        val replacements = mapOf(
+            "one" to "o1e",
+            "two" to "t2o",
+            "three" to "t3e",
+            "four" to "f4r",
+            "five" to "f5e",
+            "six" to "s6x",
+            "seven" to "s7n",
+            "eight" to "e8t",
+            "nine" to "n9e"
+        )
 
         val sumWithLiterals = this.input.map { line ->
-            "\\d".toRegex().findAll(line.replaceAll(literals, numbers))
+            "\\d".toRegex().findAll(line.replaceAll(replacements))
                 .map { it.value }
                 .joinToString("")
         }.sumOf {
@@ -36,11 +45,12 @@ class One : Task() {
         println("Sum of all coordinates incl. literals is $sumWithLiterals")
     }
 
-    private fun String.replaceAll(oldValues: List<String>, replacements: List<String>): String {
+    private fun String.replaceAll(replacements: Map<String, String>): String {
         var res = this
-        oldValues.forEachIndexed { index, s ->
-            res = res.replace(s, replacements[index])
+        replacements.entries.forEach { entry ->
+            res = res.replace(entry.key, entry.value)
         }
+
         return res
     }
 }
