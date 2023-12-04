@@ -5,41 +5,61 @@ import io.wende.aoc.common.Task
 class One : Task() {
 
     companion object {
-        @JvmStatic fun main(args: Array<String>) {
+        @JvmStatic
+        fun main(args: Array<String>) {
             One().run()
         }
+
+        val replacements = mapOf(
+            "one" to "o1e",
+            "two" to "t2o",
+            "three" to "t3e",
+            "four" to "f4r",
+            "five" to "f5e",
+            "six" to "s6x",
+            "seven" to "s7n",
+            "eight" to "e8t",
+            "nine" to "n9e"
+        )
     }
 
-    fun run (){
-        var sum = this.input?.map {
-            "\\d".toRegex().findAll(it)
-                .map { it.value }
-                .joinToString("")
-        }?.map {
-            "${it.first()}${it.last()}".toInt()
-        }?.sum()
+    fun run() {
+        val sum = this.input.map { line ->
+            line.extractDigits()
+        }.filter {
+            it.isNotBlank()
+        }.sumOf {
+            it.firstAndLastAsInt()
+        }
 
         println("Sum of all coordinates is $sum")
 
-        val literals = listOf("one", "two", "three", "four", "five", "six", "seven", "eight", "nine")
-        val numbers = listOf("o1e", "t2o", "t3e", "f4r", "f5e", "s6x", "s7n", "e8t", "n9e")
+        val sumWithLiterals = this.input.map { line ->
+            line.replaceAll(replacements).extractDigits()
+        }.filter {
+            it.isNotBlank()
+        }.sumOf {
+            it.firstAndLastAsInt()
+        }
 
-        sum = this.input?.map {
-            "\\d".toRegex().findAll(it.replaceAll(literals, numbers)
-            ).map { it.value }
-                    .joinToString("")
-        }?.map {
-            "${it.first()}${it.last()}".toInt()
-        }?.sum()
-
-        println("Sum of all coordinates incl. literals is $sum")
+        println("Sum of all coordinates incl. literals is $sumWithLiterals")
     }
 
-    inline fun String.replaceAll(oldValues: List<String>, replacements:List<String>): String {
+    // We could of course check "this" for not being blank here, as well
+    private fun String.firstAndLastAsInt(): Int =
+        "${this.first()}${this.last()}".toInt()
+
+    private fun String.extractDigits() = "\\d".toRegex()
+        .findAll(this)
+        .map { it.value }
+        .joinToString("")
+
+    private fun String.replaceAll(replacements: Map<String, String>): String {
         var res = this
-        oldValues.forEachIndexed { index, s ->
-            res = res.replace(s, replacements[index] )
+        replacements.entries.forEach { entry ->
+            res = res.replace(entry.key, entry.value)
         }
+
         return res
     }
 }
