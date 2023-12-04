@@ -16,6 +16,8 @@ class One : Task() {
             "\\d".toRegex().findAll(line)
                 .map { it.value }
                 .joinToString("")
+        }.filter {
+            it.isNotBlank()
         }.sumOf {
             "${it.first()}${it.last()}".toInt()
         }
@@ -38,6 +40,8 @@ class One : Task() {
             "\\d".toRegex().findAll(line.replaceAll(replacements))
                 .map { it.value }
                 .joinToString("")
+        }.filter {
+            it.isNotBlank()
         }.sumOf {
             "${it.first()}${it.last()}".toInt()
         }
