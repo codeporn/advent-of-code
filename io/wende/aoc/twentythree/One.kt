@@ -37,7 +37,7 @@ class One : Task() {
         println("Sum of all coordinates incl. literals is $sumWithLiterals")
     }
 
-    inline fun String.replaceAll(oldValues: List<String>, replacements: List<String>): String {
+    private fun String.replaceAll(oldValues: List<String>, replacements: List<String>): String {
         var res = this
         oldValues.forEachIndexed { index, s ->
             res = res.replace(s, replacements[index])
