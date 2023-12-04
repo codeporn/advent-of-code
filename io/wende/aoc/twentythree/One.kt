@@ -12,8 +12,8 @@ class One : Task() {
     }
 
     fun run() {
-        val sum = this.input.map {
-            "\\d".toRegex().findAll(it)
+        val sum = this.input.map { line ->
+            "\\d".toRegex().findAll(line)
                 .map { it.value }
                 .joinToString("")
         }.sumOf {
@@ -25,10 +25,9 @@ class One : Task() {
         val literals = listOf("one", "two", "three", "four", "five", "six", "seven", "eight", "nine")
         val numbers = listOf("o1e", "t2o", "t3e", "f4r", "f5e", "s6x", "s7n", "e8t", "n9e")
 
-        val sumWithLiterals = this.input.map {
-            "\\d".toRegex().findAll(
-                it.replaceAll(literals, numbers)
-            ).map { it.value }
+        val sumWithLiterals = this.input.map { line ->
+            "\\d".toRegex().findAll(line.replaceAll(literals, numbers))
+                .map { it.value }
                 .joinToString("")
         }.sumOf {
             "${it.first()}${it.last()}".toInt()
