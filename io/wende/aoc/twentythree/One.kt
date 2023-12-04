@@ -13,13 +13,11 @@ class One : Task() {
 
     fun run() {
         val sum = this.input.map { line ->
-            "\\d".toRegex().findAll(line)
-                .map { it.value }
-                .joinToString("")
+            line.extractDigits()
         }.filter {
             it.isNotBlank()
         }.sumOf {
-            "${it.first()}${it.last()}".toInt()
+            it.firstAndLastAsInt()
         }
 
         println("Sum of all coordinates is $sum")
@@ -37,17 +35,24 @@ class One : Task() {
         )
 
         val sumWithLiterals = this.input.map { line ->
-            "\\d".toRegex().findAll(line.replaceAll(replacements))
-                .map { it.value }
-                .joinToString("")
+            line.replaceAll(replacements).extractDigits()
         }.filter {
             it.isNotBlank()
         }.sumOf {
-            "${it.first()}${it.last()}".toInt()
+            it.firstAndLastAsInt()
         }
 
         println("Sum of all coordinates incl. literals is $sumWithLiterals")
     }
+
+    // We could of course check "this" for not being blank here, as well
+    private fun String.firstAndLastAsInt(): Int =
+        "${this.first()}${this.last()}".toInt()
+
+    private fun String.extractDigits() = "\\d".toRegex()
+        .findAll(this)
+        .map { it.value }
+        .joinToString("")
 
     private fun String.replaceAll(replacements: Map<String, String>): String {
         var res = this
