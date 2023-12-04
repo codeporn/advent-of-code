@@ -16,9 +16,9 @@ class One : Task() {
             "\\d".toRegex().findAll(it)
                 .map { it.value }
                 .joinToString("")
-        }.map {
+        }.sumOf {
             "${it.first()}${it.last()}".toInt()
-        }.sum()
+        }
 
         println("Sum of all coordinates is $sum")
 
@@ -30,9 +30,9 @@ class One : Task() {
                 it.replaceAll(literals, numbers)
             ).map { it.value }
                 .joinToString("")
-        }.map {
+        }.sumOf {
             "${it.first()}${it.last()}".toInt()
-        }.sum()
+        }
 
         println("Sum of all coordinates incl. literals is $sum")
     }
