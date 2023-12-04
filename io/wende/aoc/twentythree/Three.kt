@@ -9,80 +9,63 @@ class Three : Task() {
         fun main(args: Array<String>) {
             Three().run()
         }
-    }
 
-    val inputLines = this.prepareInput()
+        val numbers: MutableList<NumberLocation> = mutableListOf()
+        val symbols: MutableList<SymbolLocation> = mutableListOf()
+    }
 
     fun run() {
-        var sum = 0
+        this.prepareInput()
+        println("Sum is ${this.calculatePartNumbers()}")
+        println("Sum of gear ratio is ${this.calculateGearRatios()}")
+    }
 
-        inputLines.forEachIndexed { i, line ->
-            println("Processing line $i")
-            var symbolIndexes: List<Pair<String, Int>> = "[^\\d\\.]".toRegex()
-                .findAll(line).map { Pair(it.value, it.range.first) }.toList()
-            if(symbolIndexes.size > 0) {
-                println("   Symbol Indexes $symbolIndexes")
-            }
-            symbolIndexes.forEach {
-                println("   Processing symbol ${it.first}")
-                var start = if(it.second - 3 < 0) 0 else it.second - 3
-                var end = if(it.second + 4 > line.length) line.length else it.second + 4
-                var candidate = line.substring(start, end)
-
-                sum += this.extractSameLineNumbers(it.first, candidate)
-                sum += this.extractAdjacentLineNumbers(inputLines.get(i - 1).substring(start, end))
-                sum += this.extractAdjacentLineNumbers(inputLines.get(i + 1).substring(start, end))
+    private fun calculatePartNumbers(): Int {
+        val iterator = numbers.iterator()
+        while (iterator.hasNext()) {
+            val number = iterator.next()
+            if (symbols.none { this.isInRange(number, it) }) {
+                iterator.remove()
             }
         }
-
-        println("Sum is $sum")
+        return numbers.sumOf { it.value.toInt() }
     }
 
-    private fun extractAdjacentLineNumbers(candidate: String): Int {
-        var (left, right, center) = arrayOf(0, 0, 0)
-
-        if(candidate.substring(3, 4) == ".") {
-            left = "\\d+\$".toRegex().find(candidate.substring(0, 3))?.value?.toInt() ?: 0
-            right = "^\\d+".toRegex().find(candidate.substring(4))?.value?.toInt() ?: 0
-        }
-        else {
-            center = "\\d+".toRegex().find(
-                candidate.substring(1, 6)
-                    .replace("\\.\\d$".toRegex(), "").replace("^\\d\\.".toRegex(), "")
-            )?.value?.toInt() ?: 0
-        }
-        if(left > 0) {
-            println("       Found adjacent left $left")
-        }
-        if(right > 0) {
-            println("       Found adjacent right $right")
-        }
-        if(center > 0) {
-            println("       Found adjacent center $center")
-        }
-
-        return left + right + center;
+    private fun calculateGearRatios(): Int {
+        return symbols.filter { it.value == "*" }
+            .sumOf { gear ->
+                val rangedNumbers = numbers.filter { this.isInRange(it, gear) }
+                if(rangedNumbers.size == 2) {
+                    rangedNumbers.first().value.toInt() * rangedNumbers.last().value.toInt()
+                } else 0
+            }
     }
 
-    private fun extractSameLineNumbers(symbol: String, candidate: String): Int {
-        val left = "(\\d+)\\$symbol".toRegex().find(candidate)?.groups?.get(1)?.value?.toInt() ?: 0
-        if(left > 0) {
-            println("       Found same left $left")
-        }
-
-        val right = "\\$symbol(\\d+)".toRegex().find(candidate)?.groups?.get(1)?.value?.toInt() ?: 0
-        if(right > 0) {
-            println("       Found same right $right")
-        }
-
-        return left + right
+    private fun isInRange(number: NumberLocation, symbol: SymbolLocation): Boolean {
+       return (
+               (symbol.y == number.y - 1 || symbol.y == number.y + 1) &&
+                       (number.x.second >= symbol.x - 1 && number.x.first <= symbol.x + 1)) || // line above/below
+                (symbol.y == number.y && (number.x.second == symbol.x - 1 || number.x.first == symbol.x + 1))  // same line
     }
 
-    private fun prepareInput(): MutableList<String> {
-        val verticalBounds = ".".repeat(this.input.get(0).length + 2)
-        val extendedInput: MutableList<String> = mutableListOf(verticalBounds, verticalBounds)
-        extendedInput.addAll(1, this.input.map { ".$it." })
-        extendedInput.forEach { println(it) }
-        return extendedInput
+    private fun prepareInput() {
+        this.input.forEachIndexed { i, s ->
+            "\\d+".toRegex().findAll(s).forEach {
+                numbers.add(NumberLocation(Pair(it.range.first, it.range.last), i, it.value))
+            }
+
+            "[^\\d\\.]".toRegex().findAll(s).forEach {
+                symbols.add(SymbolLocation(it.range.first, i, it.value))
+            }
+        }
+    }
+
+    data class NumberLocation(var x:Pair<Int, Int>, var y: Int, var value: String) {
+        override fun toString() = "NumberLocation(xLocation=${x.first}:${x.second} y=$y value=$value)"
+    }
+
+    data class SymbolLocation(var x: Int, var y: Int, var value: String) {
+        override fun toString() = "SymbolLocation(x=$x y=$y value=$value)"
     }
 }
+
