@@ -9,18 +9,6 @@ class One : Task() {
         fun main(args: Array<String>) {
             One().run()
         }
-    }
-
-    fun run() {
-        val sum = this.input.map { line ->
-            line.extractDigits()
-        }.filter {
-            it.isNotBlank()
-        }.sumOf {
-            it.firstAndLastAsInt()
-        }
-
-        println("Sum of all coordinates is $sum")
 
         val replacements = mapOf(
             "one" to "o1e",
@@ -33,6 +21,18 @@ class One : Task() {
             "eight" to "e8t",
             "nine" to "n9e"
         )
+    }
+
+    fun run() {
+        val sum = this.input.map { line ->
+            line.extractDigits()
+        }.filter {
+            it.isNotBlank()
+        }.sumOf {
+            it.firstAndLastAsInt()
+        }
+
+        println("Sum of all coordinates is $sum")
 
         val sumWithLiterals = this.input.map { line ->
             line.replaceAll(replacements).extractDigits()
