@@ -8,51 +8,51 @@ class Two : Task() {
         @JvmStatic fun main(args: Array<String>) {
             Two().run()
         }
+        val games: List<Game> = mutableListOf()
     }
-
-    private val games: List<Game> = mutableListOf()
 
     fun run (){
         this.parseGames()
         println("Sum of IDs of possible games with params [r:12, g:13, b:14] is ${
-            this.findPossibleGames(12,13,14).map { it.id }.sum()
+            this.findPossibleGames(12, 13, 14).sumOf { it.id }
         }")
-        println("Sumemd up power of all games is ${games.map { it.maxRed() * it.maxGreen() * it.maxBlue() }.sum()}")
+        println("Sumemd up power of all games is ${games.sumOf { it.maxRed() * it.maxGreen() * it.maxBlue() }}")
     }
 
-    fun findPossibleGames(red:Int, green:Int, blue:Int): List<Game> {
+    private fun findPossibleGames(red:Int, green:Int, blue:Int): List<Game> {
         return games.filter {
-            it.maxRed() <= red && it.maxGreen() <= green && it.maxBlue() <= blue
+            (it.maxRed() <= red) && (it.maxGreen() <= green) && (it.maxBlue() <= blue)
         }
     }
 
-    fun parseGames() {
-        this.input?.forEach {
+    private fun parseGames() {
+        this.input.forEach {
             val steps: List<Step> = mutableListOf()
-            it.split(":").get(1).split(";").forEach {
+            it.split(":")[1].split(";").forEach {
                 steps.addLast(Step(
                     (" (\\d+) r".toRegex().find(it)?.groups?.get(1)?.value?.toInt() ?: 0),
                     (" (\\d+) g".toRegex().find(it)?.groups?.get(1)?.value?.toInt() ?: 0),
                     (" (\\d+) b".toRegex().find(it)?.groups?.get(1)?.value?.toInt() ?: 0)
                 ))
             }
-            this.games.addLast("\\d+".toRegex().find(it.split(":").get(0))?.value?.toInt()?.let { it1 -> Game(it1, steps) })
+            games.addLast("\\d+".toRegex().find(it.split(":")[0])?.value?.toInt()?.let { it1 -> Game(it1, steps) })
         }
     }
+
+    class Game(var id: Int, private var steps:List<Step>) {
+        fun maxRed() : Int{
+            return steps.maxOfOrNull { it.red } ?: 0
+        }
+
+        fun maxGreen() : Int {
+            return steps.maxOfOrNull { it.green } ?: 0
+        }
+
+        fun maxBlue() : Int {
+            return steps.maxOfOrNull { it.blue } ?: 0
+        }
+    }
+
+    class Step(var red:Int, var green:Int, var blue:Int)
 }
 
-class Game(var id: Int, var steps:List<Step>) {
-    fun maxRed() : Int{
-        return steps.map { it.red }.maxOrNull() ?: 0
-    }
-
-    fun maxGreen() : Int {
-        return steps.map { it.green }.maxOrNull() ?: 0
-    }
-
-    fun maxBlue() : Int {
-        return steps.map { it.blue }.maxOrNull() ?: 0
-    }
-}
-
-class Step(var red:Int, var green:Int, var blue:Int) {}

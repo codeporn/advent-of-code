@@ -8,13 +8,11 @@ class Four : Task() {
         @JvmStatic fun main(args: Array<String>) {
             Four().run()
         }
+        val cards: MutableList<Card> = mutableListOf()
     }
-
-    private val cards: MutableList<Card> = mutableListOf()
 
     fun run (){
         this.parseCards()
-
         println("Sum of all points is ${cards.map { it.getPoints() }.sum()}")
 
         val count = cards.map { 1 }.toMutableList()
@@ -24,11 +22,10 @@ class Four : Task() {
                 count[i] += count[index]
             }
         }
-
         println("Final number of scratchcards: ${count.sum()}")
     }
 
-    fun parseCards() {
+    private fun parseCards() {
         this.input?.forEach {
             val winningNumbers: List<Int> = it.split(":").get(1)
                 .split("|").get(0).trim()
@@ -38,33 +35,35 @@ class Four : Task() {
                 .split("|").get(1).trim()
                 .split("\\s+".toRegex())
                 .map { it.toInt() }
-            this.cards.addLast("\\d+".toRegex().find(it.split(":").get(0))?.value?.toInt()?.let {
+            cards.addLast("\\d+".toRegex().find(it.split(":").get(0))?.value?.toInt()?.let {
                 it1 -> Card(it1, winningNumbers, guesses) })
         }
     }
-}
 
-class Card(var id: Int, var winningNumbers: List<Int>, var guesses: List<Int>) {
-    fun getMatches(): Set<Int> {
-        return winningNumbers.intersect(guesses)
-    }
-
-    fun calcualtePoints(n: Int): Int {
-        var ret = 1
-        if(n == 0) {
-            ret = 0
+    class Card(var id: Int, var winningNumbers: List<Int>, var guesses: List<Int>) {
+        fun getMatches(): Set<Int> {
+            return winningNumbers.intersect(guesses)
         }
-        else if(n > 1){
-            for(i in 1..n-1) {
-                ret *= 2
+
+        fun calcualtePoints(n: Int): Int {
+            var ret = 1
+            if(n == 0) {
+                ret = 0
             }
+            else if(n > 1){
+                for(i in 1..n-1) {
+                    ret *= 2
+                }
+            }
+            return ret
         }
-        return ret
-    }
 
-    fun getPoints(): Int {
-        return this.calcualtePoints(this.getMatches().size)
-    }
+        fun getPoints(): Int {
+            return this.calcualtePoints(this.getMatches().size)
+        }
 
-    override fun toString() = "Card(id=$id, matches=${this.getMatches().size}, points=${this.getPoints()})"
+        override fun toString() = "Card(id=$id, matches=${this.getMatches().size}, points=${this.getPoints()})"
+    }
 }
+
+
