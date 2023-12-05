@@ -16,7 +16,7 @@ class Two : Task() {
         println("Sum of IDs of possible games with params [r:12, g:13, b:14] is ${
             this.findPossibleGames(12, 13, 14).sumOf { it.id }
         }")
-        println("Sumemd up power of all games is ${games.sumOf { it.maxRed() * it.maxGreen() * it.maxBlue() }}")
+        println("Summed up power of all games is ${games.sumOf { it.maxRed() * it.maxGreen() * it.maxBlue() }}")
     }
 
     private fun findPossibleGames(red:Int, green:Int, blue:Int): List<Game> {
