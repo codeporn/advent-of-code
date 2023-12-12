@@ -2,14 +2,9 @@ package io.wende.aoc.twentythree
 
 import io.wende.aoc.common.Task
 
-class Seven : Task() {
+class Seven(test: Boolean) : Task(test) {
 
     companion object {
-        @JvmStatic
-        fun main(args: Array<String>) {
-            Seven().run()
-        }
-
         var hands: MutableList<HandWithJokers> = mutableListOf()
         val highCardsWithJoker = mapOf(
             'A' to 'Z',
@@ -20,7 +15,7 @@ class Seven : Task() {
         )
     }
 
-    fun run() {
+    override fun run() {
         this.prepareInput(false)
         println("Total winnings are ${hands.mapIndexed { index, hand -> (index + 1) * hand.bid() }.sum()}")
 
