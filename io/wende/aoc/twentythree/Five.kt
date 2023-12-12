@@ -2,13 +2,10 @@ package io.wende.aoc.twentythree
 
 import io.wende.aoc.common.Task
 
-class Five : Task() {
+class Five(test: Boolean) : Task(test) {
 
     companion object {
-        @JvmStatic
-        fun main(args: Array<String>) {
-            Five().run()
-        }
+
         var singleTuples: List<Tuple> = mutableListOf()
         var seedRanges: List<Pair<Long, Long>> = mutableListOf()
         var humidityToLocation: List<GardenMap> = mutableListOf()
@@ -20,7 +17,7 @@ class Five : Task() {
         var seedToSoil: List<GardenMap> = mutableListOf()
     }
 
-    fun run() {
+    override fun run() {
         this.prepareInput()
         println("Lowest seed location is ${singleTuples.sortedBy { it.location }.first().location}")
         println("... lean back, this might take a while...")
