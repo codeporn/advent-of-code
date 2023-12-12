@@ -2,16 +2,14 @@ package io.wende.aoc.twentythree
 
 import io.wende.aoc.common.Task
 
-class Two : Task() {
+class Two(test: Boolean) : Task(test) {
 
     companion object {
-        @JvmStatic fun main(args: Array<String>) {
-            Two().run()
-        }
+
         val games: List<Game> = mutableListOf()
     }
 
-    fun run (){
+    override fun run (){
         this.parseGames()
         println("Sum of IDs of possible games with params [r:12, g:13, b:14] is ${
             this.findPossibleGames(12, 13, 14).sumOf { it.id }
