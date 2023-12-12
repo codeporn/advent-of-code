@@ -2,19 +2,16 @@ package io.wende.aoc.twentythree
 
 import io.wende.aoc.common.Task
 
-class Three : Task() {
+class Three(test: Boolean) : Task(test) {
 
     companion object {
-        @JvmStatic
-        fun main(args: Array<String>) {
-            Three().run()
-        }
+
 
         val numbers: MutableList<NumberLocation> = mutableListOf()
         val symbols: MutableList<SymbolLocation> = mutableListOf()
     }
 
-    fun run() {
+    override fun run() {
         this.prepareInput()
         println("Sum is ${this.calculatePartNumbers()}")
         println("Sum of gear ratio is ${this.calculateGearRatios()}")
