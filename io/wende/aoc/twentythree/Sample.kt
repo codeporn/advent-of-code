@@ -2,15 +2,8 @@ package io.wende.aoc.twentythree
 
 import io.wende.aoc.common.Task
 
-class Sample : Task() {
-
-    companion object {
-        @JvmStatic fun main(args: Array<String>) {
-            Sample().run()
-        }
-    }
-
-    fun run (){
+class Sample(test: Boolean) : Task(test) {
+    override fun run (){
         val calories = mutableListOf(0)
         this.input?.forEach {
             if(it.isBlank()) {
