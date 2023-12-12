@@ -3,18 +3,15 @@ package io.wende.aoc.twentythree
 import io.wende.aoc.common.Task
 import lcm
 
-class Eight : Task() {
+class Eight(test: Boolean) : Task(test) {
 
     companion object {
-        @JvmStatic
-        fun main(args: Array<String>) {
-            Eight().run()
-        }
+
         var instr: List<Int> = mutableListOf()
         var steps: Map<String, List<String>> = mutableMapOf()
     }
 
-    fun run() {
+    override fun run() {
         this.prepareInput()
         println("Steps from AAA to reach ZZZ ${this.navigate("AAA", "ZZZ")}")
         println("Parallel steps from A ending to Z ending nodes ${this.navigateParallel("A", "Z")}")
