@@ -2,16 +2,13 @@ package io.wende.aoc.twentythree
 
 import io.wende.aoc.common.Task
 
-class Four : Task() {
+class Four(test: Boolean) : Task(test) {
 
     companion object {
-        @JvmStatic fun main(args: Array<String>) {
-            Four().run()
-        }
         val cards: MutableList<Card> = mutableListOf()
     }
 
-    fun run (){
+    override fun run (){
         this.parseCards()
         println("Sum of all points is ${cards.map { it.getPoints() }.sum()}")
 
