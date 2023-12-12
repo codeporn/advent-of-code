@@ -2,14 +2,9 @@ package io.wende.aoc.twentythree
 
 import io.wende.aoc.common.Task
 
-class One : Task() {
+class One(test: Boolean) : Task(test) {
 
     companion object {
-        @JvmStatic
-        fun main(args: Array<String>) {
-            One().run()
-        }
-
         val replacements = mapOf(
             "one" to "o1e",
             "two" to "t2o",
@@ -23,7 +18,7 @@ class One : Task() {
         )
     }
 
-    fun run() {
+    override fun run() {
         val sum = this.input.map { line ->
             line.extractDigits()
         }.filter {
