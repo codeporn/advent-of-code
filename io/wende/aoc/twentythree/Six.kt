@@ -2,18 +2,15 @@ package io.wende.aoc.twentythree
 
 import io.wende.aoc.common.Task
 
-class Six : Task() {
+class Six(test: Boolean) : Task(test) {
 
     companion object {
-        @JvmStatic
-        fun main(args: Array<String>) {
-            Six().run()
-        }
+
         var topResults: List<Pair<Long, Long>> = listOf()
         var topResult: List<Pair<Long, Long>> = listOf()
     }
 
-    fun run() {
+    override fun run() {
         prepareInput()
         println("Multiplied winning strategies for multiple top results: ${this.multiplyWinningStrategies(topResults)}")
         println("Multiplied winning strategies for single top result: ${this.multiplyWinningStrategies(topResult)}")
