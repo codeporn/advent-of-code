@@ -11,7 +11,7 @@ class Thirteen(test: Boolean) : Task(test) {
     override fun run() {
         this.prepareInput()
 
-        println("\nSummarized notes add up to 27502 ${patterns.sumOf {
+        println("\nSummarized notes add up to ${patterns.sumOf {
             verticalMiddle(it.rotatedPattern) + (100 * verticalMiddle(it.originalPattern))
         }}")
         println("\nSummarized notes with anomalies add up to ${patterns.sumOf {
