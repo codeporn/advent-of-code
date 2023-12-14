@@ -12,6 +12,33 @@ class Fourteen(test: Boolean) : Task(test) {
         this.prepareInput()
         dishes[0].tilt(Direction.NORTH)
         println("\nTotal load is ${dishes[0].load()}")
+
+        this.prepareInput()
+        this.spin(dishes[0], 1000000000L)
+        println("\nTotal load after 1000000000 spin cycles is ${dishes[0].load()}")
+    }
+
+    private fun spin(dish: Dish, cycles: Long) {
+        var i: Long = 0
+        var distance: Long = 0
+        var patterns: MutableMap<String, Long> = mutableMapOf()
+
+        while(i < cycles) {
+            if (patterns.containsKey(dish.toString())) {
+                distance = i - patterns[dish.toString()]!!
+                break
+            }
+            patterns[dish.toString()] = i
+            dish.spin()
+            i++
+        }
+
+        if (distance > 0) {
+            val remainingCycles = (cycles - i) % distance
+            for (i in 1..remainingCycles) {
+                dish.spin()
+            }
+        }
     }
 
     private fun prepareInput() {
@@ -27,6 +54,7 @@ class Fourteen(test: Boolean) : Task(test) {
         fun get(): MutableList<MutableList<Char>> = currentOrientation
         fun currentOut() = currentOrientation.forEach { println(it) }
         fun originalOut() = originalGrid.forEach { println(it) }
+        override fun toString(): String = currentOrientation.joinToString {it.toString() }
 
         fun rotateClockwise(degrees: Degrees) {
             currentOrientation = when(degrees) {
@@ -69,6 +97,13 @@ class Fourteen(test: Boolean) : Task(test) {
                 Direction.SOUTH -> rotateClockwise(Degrees.TWO_SEVENTY)
                 Direction.WEST -> null
             }
+        }
+
+        fun spin() {
+            tilt(Direction.NORTH)
+            tilt(Direction.WEST)
+            tilt(Direction.SOUTH)
+            tilt(Direction.EAST)
         }
 
         fun load(): Int =
