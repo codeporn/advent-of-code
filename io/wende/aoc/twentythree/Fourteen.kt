@@ -1,5 +1,6 @@
 package io.wende.aoc.twentythree
 
+import Direction
 import io.wende.aoc.common.Task
 
 class Fourteen(test: Boolean) : Task(test) {
@@ -114,9 +115,5 @@ class Fourteen(test: Boolean) : Task(test) {
 
     enum class Degrees {
         NINETY, ONE_EIGHTY, TWO_SEVENTY
-    }
-
-    enum class Direction {
-        NORTH, EAST, SOUTH, WEST
     }
 }

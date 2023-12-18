@@ -51,3 +51,25 @@ val numbers: Map<Int, String> = mapOf(
     9 to "nine", 10 to "ten", 11 to "eleven", 12 to "twelve", 13 to "thirteen", 14 to "fourteen", 15 to "fifteen",
     16 to "sixteen", 17 to "seventeen", 18 to "eighteen", 19 to "nineteen", 20 to "twenty", 21 to "twentyone",
     22 to "twentytwo", 23 to "twentythree", 24 to "twentyfour", 25 to "twentyfive" )
+
+enum class Direction {
+    NORTH, EAST, SOUTH, WEST
+}
+
+data class Point(val x: Long, val y: Long) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Point) return false
+
+        if (x != other.x) return false
+        if (y != other.y) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = x.hashCode()
+        result = 31 * result + y.hashCode()
+        return result
+    }
+}
