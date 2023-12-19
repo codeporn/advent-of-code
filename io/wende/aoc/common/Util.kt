@@ -1,12 +1,11 @@
 import io.wende.aoc.Runner
 import io.wende.aoc.common.Task
 import io.wende.aoc.common.Util
+import io.wende.aoc.twentythree.Eighteen
 import java.io.File
-import java.net.URL
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-import kotlin.io.path.Path
-import kotlin.io.path.readLines
+import kotlin.math.absoluteValue
 
 fun gcd(a: Long, b: Long): Long = if (b == 0L) a else gcd(b, a % b)
 fun lcm(a: Long, b: Long): Long = a / gcd(a, b) * b
@@ -53,10 +52,29 @@ val numbers: Map<Int, String> = mapOf(
     22 to "twentytwo", 23 to "twentythree", 24 to "twentyfour", 25 to "twentyfive" )
 
 enum class Direction {
-    NORTH, EAST, SOUTH, WEST
+    NORTH, EAST, SOUTH, WEST;
+
+    companion object {
+        var dirMap = mapOf("R" to EAST, "L" to WEST, "U" to NORTH, "D" to SOUTH)
+        fun from(type: String?): Direction = values().find { it.name == type } ?: dirMap[type] ?: NORTH
+    }
 }
 
-data class Point(val x: Long, val y: Long) {
+data class Point(var x: Long, var y: Long) {
+
+    fun walk(direction: Direction) {
+        when (direction) {
+            Direction.NORTH -> this.y -= 1
+            Direction.EAST -> this.x += 1
+            Direction.SOUTH -> this.y += 1
+            Direction.WEST -> this.x -= 1
+        }
+    }
+
+    fun snap(): Point {
+        return Point(this.x, this.y)
+    }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is Point) return false
@@ -73,3 +91,13 @@ data class Point(val x: Long, val y: Long) {
         return result
     }
 }
+
+
+
+fun shoelace(points: List<Point>): Long = (0 until points.size - 1).sumOf {
+    (points[it].x * points[(it + 1) ].y) - (points[it].y * points[(it + 1)].x)
+}.absoluteValue / 2
+
+fun innerGraphArea(points: List<Point>): Long = (shoelace(points) - points.size/2 + 1)
+
+fun outerGraphArea(points: List<Point>): Long = (shoelace(points) - points.size/2 + 1) + points.size
