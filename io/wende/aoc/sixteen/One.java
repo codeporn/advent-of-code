@@ -2,6 +2,7 @@ package io.wende.aoc.sixteen;
 
 import io.wende.aoc.common.Puzzle;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -47,8 +48,35 @@ public class One extends Puzzle {
         return Math.abs(result[0]) + Math.abs(result[1]);
     }
 
+    private Integer calculateDistinct() {
+        Direction currentDirection = Direction.N;
+        Integer[] result = {0, 0};
+        List<String> log = new ArrayList<>();
+        log.add(result[0] + "|" + result[1]);
+
+        for(String instruction : this.createInput()) {
+            currentDirection = currentDirection.get(instruction.substring(0, 1));
+            Integer steps = Integer.valueOf(instruction.substring(1));
+
+            for(int i = steps; i-->0;) {
+                switch (currentDirection) {
+                    case E: result[0] = result[0] + 1; break;
+                    case W: result[0] = result[0] - 1; break;
+                    case N: result[1] = result[1] + 1; break;
+                    case S: result[1] = result[1] - 1; break;
+                }
+                if(log.contains(result[0] + "|" + result[1])) {
+                    return Math.abs(result[0]) + Math.abs(result[1]);
+                }
+                log.add(result[0] + "|" + result[1]);
+            }
+        }
+        return Math.abs(result[0]) + Math.abs(result[1]);
+    }
+
     private void run() {
         out("Blocks {}", calculate());
+        out("Distinct Blocks {}", calculateDistinct());
     }
 
     private List<String> createInput() {
