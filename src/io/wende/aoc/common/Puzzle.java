@@ -11,7 +11,9 @@ public abstract class Puzzle {
     this.input = Util.loadFileContent(
         this.getClass().getPackageName().substring(this.getClass().getPackageName().lastIndexOf(".") + 1)
             + "/"
-            + this.getClass().getSimpleName().toLowerCase());
+            + this.getClass().getSimpleName().toLowerCase()
+            //+ ".test"
+    );
   }
 
   protected void out(String message, final Object... args) {
