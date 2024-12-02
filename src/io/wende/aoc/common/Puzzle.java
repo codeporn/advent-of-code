@@ -12,7 +12,7 @@ public abstract class Puzzle {
         this.getClass().getPackageName().substring(this.getClass().getPackageName().lastIndexOf(".") + 1)
             + "/"
             + this.getClass().getSimpleName().toLowerCase()
-            //+ ".test"
+//            + ".test"
     );
   }
 
