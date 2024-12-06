@@ -19,32 +19,20 @@ public class Util {
   }
 
   public static void main(final String args[]) {
-    //System.out.println("Content: \n" + Util.loadFileContent("test"));
-
-    List<String> list = new ArrayList<>();
-    list.add("A");
-    list.add("B");
-    list.add("C");
-
-    List<String> list2 = new ArrayList<>();
-    list2.add("D");
-    list2.add("E");
-    list2.add("F");
-
-    List<String> list3 = new ArrayList<>();
-    list3.add("G");
-    list3.add("H");
-    list3.add("I");
-
-    List<List<String>> list4 = new ArrayList<>();
-    list4.add(list);
-    list4.add(list2);
-    list4.add(list3);
-
-    System.out.println("Content: \n" + rotateMatrix(list4));
-
+    System.out.println("Hello, Util!");
   }
 
+  /**
+   * Rotates a matix structure 90° counter-clockwise, whereas rows are represented by outer list, co.
+   * Example:
+   * <pre>
+   *   1 2 3     3 6 9
+   *   4 5 6  >  2 5 8
+   *   7 8 9     1 4 7
+   * </pre>
+   * @param matrix
+   * @return
+   */
   public static List<List<String>> rotateMatrix(final List<List<String>> matrix) {
     final List<List<String>> result = new ArrayList<>();
     for(int i = matrix.get(0).size(); i-->0;) {
