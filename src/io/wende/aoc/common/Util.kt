@@ -1,8 +1,8 @@
 import io.wende.aoc.Runner
 import io.wende.aoc.common.Task
 import io.wende.aoc.common.Util
-import io.wende.aoc.twentythree.Eighteen
 import java.io.File
+import java.io.Serializable
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import kotlin.math.absoluteValue
@@ -55,20 +55,22 @@ enum class Direction {
     NORTH, EAST, SOUTH, WEST;
 
     companion object {
-        var dirMap = mapOf("R" to EAST, "L" to WEST, "U" to NORTH, "D" to SOUTH)
-        fun from(type: String?): Direction = values().find { it.name == type } ?: dirMap[type] ?: NORTH
+        var dirMap = mapOf("R" to EAST, "L" to WEST, "U" to NORTH, "D" to SOUTH,
+            ">" to EAST, "<" to WEST, "^" to NORTH, "v" to SOUTH)
+        fun from(type: String?): Direction = entries.find { it.name == type } ?: dirMap[type] ?: NORTH
     }
 }
 
-data class Point(var x: Long, var y: Long) {
+data class Point(var x: Long, var y: Long) : Serializable {
 
-    fun walk(direction: Direction) {
+    fun walk(direction: Direction): Point {
         when (direction) {
             Direction.NORTH -> this.y -= 1
             Direction.EAST -> this.x += 1
             Direction.SOUTH -> this.y += 1
             Direction.WEST -> this.x -= 1
         }
+        return this
     }
 
     fun snap(): Point {
