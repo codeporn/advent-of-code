@@ -13,9 +13,8 @@ class Two(test: Boolean) : Task(test) {
 
     override fun run() {
         this.input[0].split(",").map { range ->
-            Pair(range.substring(0, range.indexOf("-")).toLong(), range.substring(range.indexOf("-") + 1).toLong())
+            Pair(range.substringBefore("-").toLong(), range.substring(range.indexOf("-") + 1).toLong())
         }.forEach { pair ->
-            println(" ${pair.first} ${pair.second}")
             for(id in pair.first..pair.second) {
                 if(repeated.matches(id.toString())) {
                     invalidSum += id
