@@ -128,3 +128,20 @@ fun <T> List<T>.permutations(): List<List<T>> {
         }
     }
 }
+
+fun <T> List<T>.zipWithAllUnique(): List<Pair<T, T>> {
+    val result = mutableListOf<Pair<T, T>>()
+    val visited = mutableSetOf<Pair<T, T>>()
+
+    for (i in this.indices) {
+        for (j in i + 1 until this.size) {
+            val pair = Pair(this[i], this[j])
+            if (pair !in visited) {
+                result.add(pair)
+                visited.add(pair)
+                visited.add(pair.copy(first = pair.second, second = pair.first)) // Add reverse pair as well
+            }
+        }
+    }
+    return result
+}
