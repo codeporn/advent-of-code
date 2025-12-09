@@ -7,13 +7,14 @@ import kotlin.math.sqrt
 
 class Eight (test: Boolean) : Task(test) {
 
-companion object {
-    var lines = mutableListOf<Junction>()
-    var circuits = mutableListOf<MutableSet<Junction>>()
-}
+    companion object {
+        var lines = mutableListOf<Junction>()
+        var circuits = mutableListOf<MutableSet<Junction>>()
+    }
 
     override fun run() {
         prepare()
+
         for ((a, b) in lines.zipWithAllUnique().sortedBy { (a, b) -> calculateDistance(a, b) }
             .take(lines.size.takeIf { it != 20 } ?: 10)) merge(circuits, a, b)
 
